@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enterprise Identity Security Gateway</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Enterprise Identity Security Gateway</h1>
+      <p class="subtitle">CSC337 Lab Assignment 05 — Advanced Web Technologies</p>
+    </header>
+
+    <!-- AUTHENTICATION SECTION -->
+    <section class="card" id="authSection">
+      <h2>1. Hybrid Authentication</h2>
+      
+      <div class="tabs">
+        <button type="button" class="tab-btn active" id="tabLoginBtn">Login</button>
+        <button type="button" class="tab-btn" id="tabRegisterBtn">Register</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="loginEmail" required placeholder="superadmin@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" required placeholder="••••••••" />
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginSubmitBtn">Login with Credentials</button>
+      </form>
+
+      <!-- Register Form -->
+      <form id="registerForm" style="display: none;">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="regName" required placeholder="John Doe" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="regEmail" required placeholder="john@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="regPassword" required placeholder="Min 6 characters" />
+        </div>
+        <div class="form-group">
+          <label>Assigned Role</label>
+          <select id="regRole">
+            <option value="Employee">Employee</option>
+            <option value="Manager">Manager</option>
+            <option value="SuperAdmin">SuperAdmin</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="regSubmitBtn">Create Account</button>
+      </form>
+
+      <div class="divider"><span>OR SOCIAL OAUTH 2.0</span></div>
+
+      <a href="/api/v1/auth/github" class="btn btn-github">
+        Continue with GitHub OAuth
+      </a>
+    </section>
+
+    <!-- SESSION & DASHBOARD SECTION -->
+    <section class="card" id="dashboardSection" style="display: none;">
+      <div class="user-header">
+        <div>
+          <h2 id="userNameDisplay">Welcome, User</h2>
+          <p id="userRoleBadge" class="badge">Role: Unknown</p>
+        </div>
+        <button type="button" id="logoutBtn" class="btn btn-danger">Logout</button>
+      </div>
+
+      <div class="token-box">
+        <label>Current Short-Lived JWT Access Token (15 mins):</label>
+        <textarea id="accessTokenDisplay" readonly></textarea>
+        <button type="button" id="refreshTokenBtn" class="btn btn-secondary btn-sm">Trigger Token Rotation</button>
+      </div>
+
+      <!-- RBAC TESTING SECTION -->
+      <h3 style="margin-top: 25px;">2. RBAC Route Matrix Testing</h3>
+      <div class="rbac-buttons">
+        <button type="button" id="testProfileBtn" class="btn btn-outline">
+          Test Profile (All Roles)
+        </button>
+        <button type="button" id="testPayrollBtn" class="btn btn-outline">
+          Test Payroll Approve (Manager / SuperAdmin)
+        </button>
+        <button type="button" id="testDeleteBtn" class="btn btn-outline btn-outline-danger">
+          Test Delete User (SuperAdmin Only)
+        </button>
+      </div>
+    </section>
+
+    <!-- RESPONSE CONSOLE -->
+    <section class="card">
+      <div class="console-header">
+        <h3>Server Response & Security Logs</h3>
+        <button type="button" id="clearConsoleBtn" class="btn-clear">Clear</button>
+      </div>
+      <pre id="apiConsole">// Ready. Perform an action to view request & response payload.</pre>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
